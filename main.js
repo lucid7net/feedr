@@ -72,3 +72,40 @@
           )
   }
   renderHeader(state, header);
+
+  function renderContainer (state, into){
+         into.innerHTML = `
+          <section id="main" class="wrapper">
+      ${state.articles.map((article)=>{
+          return renderContainerArticle(article)
+      }).join('')}
+    </section>
+         `
+  }
+
+  function renderContainerArticle(article){
+        return(
+        `
+        <article class="article">
+        <section class="featured-image">
+          <img src="images/article_placeholder_1.jpg" alt="" />
+        </section>
+        <section class="article-content">
+          <a href="#"><h3>article.title</h3></a>
+          <h6>Lifestyle</h6>
+        </section>
+        <section class="impressions">
+          526
+        </section>
+        <div class="clearfix"></div>
+      </article>
+        `
+        )
+
+  }
+
+
+ <section id="main" class="wrapper">
+      
+      
+    </section>
