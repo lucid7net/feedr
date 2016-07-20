@@ -16,9 +16,6 @@
   }
 })()
 */
-
-
-
   var header = document.querySelector('header')
 	var container = document.querySelector('#container')
 	var state = {
@@ -162,6 +159,11 @@ function fetchMashableData(){
  }
 
 fetchMashableData();
+
+//function getArticle()=>{
+    var article = article.name;
+    //return article == selectedArticle;
+//}
 
   
 function filterArticlesBySource(){
