@@ -28,11 +28,7 @@
 	  	{
 	  		name: 'Reddit',
 	  		url: 'https://www.reddit.com/top.json'
-	  	},
-      {
-        name: 'Guardian',
-        url: 'https://crossorigin.me/http://content.guardianapis.com/au?show-editors-picks=true&api-key=622f5036-10b9-47a4-9f76-2b043582aaaf'
-      }
+	  	}
 		],
 		articles: []
 	}
@@ -70,6 +66,7 @@
 
 
   function renderContainer (state, into){
+    /*if*/
          into.innerHTML = `
           <section id="main" class="wrapper">
       ${state.articles.map((article)=>{
@@ -82,7 +79,7 @@
   function renderContainerArticle(article){
         return(
         `
-        <article class="article">
+        <article class="article" id=${article.id}>
         <section class="featured-image">
           <img src="${article.img}" alt="" />
         </section>
@@ -101,12 +98,13 @@
   }
 //Loader popup HTML 
  function renderPopup(){
-    `<div id="pop-up" class="loader">${article.title}
+   return `<div id="pop-up" class="loader">${article.title}
     </div>`
  }
 
  //Article content popup HTML 
-   function renderArticle(){`<div id="pop-up">
+   function renderArticle(){
+     return `<div id="pop-up">
       <a href="#" class="close-pop-up">X</a>
       <div class="wrapper">
         <h1>${article.title}</h1>
@@ -125,13 +123,15 @@
       }).then((result) => {
         result.data.children.forEach((item) => {
           var article = {}
-          article.title =  item.data.title,
-          article.img = item.data.thumbnail,
-          article.url =  'https://reddit.com' + item.data.permalink,
-          article.impressions =  item.data.score,
-          article.category =  item.data.subreddit,
+          article.title =  item.data.title
+          article.img = item.data.thumbnail
+          article.url =  'https://reddit.com' + item.data.permalink
+          article.impressions =  item.data.score
+          article.category =  item.data.subreddit
           article.description =  item.data.title
+          article.id = state.id
           state.articles.push(article);
+          state.id++
         })
         renderContainer(state, container);
       })  
@@ -144,15 +144,18 @@ function fetchMashableData(){
   .then((response) => {
     return response.json()
   }).then((result) => {
+   
     result.new.forEach((item) => {
-      var article = {}
-          article.title =  item.display_title,
-          article.img = item.image,
-          article.url =  item.link,
-          article.impressions =  item.shares.total,
-          article.category =  item.channel,
+          var article = {}
+          article.title =  item.display_title
+          article.img = item.image
+          article.url =  item.link
+          article.impressions =  item.shares.total
+          article.category =  item.channel
           article.description =  item.content.plain
+          article.id = state.id
           state.articles.push(article);
+          state.id++
         })
         renderContainer(state, container);
       })  
@@ -160,10 +163,10 @@ function fetchMashableData(){
 
 fetchMashableData();
 
-//function getArticle()=>{
-    var article = article.name;
-    //return article == selectedArticle;
-//}
+function getArticle() {
+  /*var article = article.name;
+  return article == selectedArticle;*/
+  }
 
   
 function filterArticlesBySource(){
